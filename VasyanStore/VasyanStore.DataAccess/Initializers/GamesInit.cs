@@ -8,9 +8,9 @@ using VasyanStore.DataAccess.Entities;
 
 namespace VasyanStore.DataAccess.Initializers
 {
-    public class GamesInit : DropCreateDatabaseAlways<ApplicationContext>
+    public class GamesInit : DropCreateDatabaseAlways<EFContext>
     {
-        protected override void Seed(ApplicationContext context)
+        protected override void Seed(EFContext context)
         {
             var genres = new List<Genre>
             {
@@ -34,6 +34,37 @@ namespace VasyanStore.DataAccess.Initializers
             };
 
             context.Developers.AddRange(devs);
+            context.SaveChanges();
+
+            var games = new List<Game>()
+            {
+                new Game
+                {
+                    Name = "Skyrim",
+                    Price = 40,
+                    ReleaseDate = new DateTime(2011,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Bethesda"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "RPG")
+                },
+                 new Game
+                {
+                    Name = "The Witcher 3: Wild Hunt",
+                    Price = 40,
+                    ReleaseDate = new DateTime(2015,5,18),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "CD Project Red"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "RPG")
+                },
+                  new Game
+                {
+                    Name = "Doka 2",
+                    Price = 0,
+                    ReleaseDate = new DateTime(2010,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Valve"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Strategy")
+                }
+            };
+
+            context.Games.AddRange(games);
             context.SaveChanges();
         }
     }

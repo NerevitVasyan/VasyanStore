@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VasyanStore.DataAccess.Repository.Abstraction;
 
 namespace VasyanStore.DataAccess.Repository.Implementation
 {
+    // CRUD - Create Read Update Delete
     public class EfRepository<TEntity> : IGenericRepository<TEntity> where TEntity: class
     {
         private readonly DbContext _context;

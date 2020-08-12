@@ -11,9 +11,9 @@ namespace VasyanStore.DataAccess.Entities
 
         /* Navigation Props */
 
-        public int GenreId { get; set; }
+        public int? GenreId { get; set; }
         public Genre Genre { get; set; }
-        public int DeveloperId { get; set; }
+        public int? DeveloperId { get; set; }
         public Developer Developer { get; set; }
     }
 

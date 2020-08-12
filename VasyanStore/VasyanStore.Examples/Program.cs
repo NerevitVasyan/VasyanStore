@@ -5,31 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using VasyanStore.DataAccess;
 using VasyanStore.DataAccess.Entities;
+using VasyanStore.DataAccess.Repository.Abstraction;
+using VasyanStore.DataAccess.Repository.Implementation;
 
 namespace VasyanStore.Examples
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            Developer dev = null;
+            IGenericRepository<Game> repos = new EfRepository<Game>(new EFContext());
 
-            using (ApplicationContext db1 = new ApplicationContext())
+            repos.Create(new Game { Name = "Skyrim", Price = 60, ReleaseDate = DateTime.Now });
+
+            var games = repos.GetAll();
+
+            foreach(var game in games)
             {
-                dev = db1.Developers.First();
+                Console.WriteLine(game.Name);
             }
-
-            /* 2 hours later */
-
-            dev.Name = "Petro";
-
-            using (ApplicationContext db2 = new ApplicationContext())
-            {
-                db2.Entry(dev).State = System.Data.Entity.EntityState.Modified;
-                db2.SaveChanges();
-            }
-
         }
     }
 }

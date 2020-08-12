@@ -1,0 +1,22 @@
+﻿@{
+    @* Вказуємо обгортку для нашої сторінки *@
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using VasyanStore.DataAccess.Entities;
+
+<div class="container">
+    <div class="row">
+        @foreach (Game game in ViewBag.Games)
+        {
+            <div class="col-4">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <p>@game.Name</p>
+                        <p>@game.Price</p>
+                        <p>@game.ReleaseDate</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
