@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using VasyanStore.DataAccess.Repository.Abstraction;
 
 namespace VasyanStore.DataAccess.Repository.Implementation
 {
+    // ТЕСТОВИЙ РЕПОЗИТОРІЙ, ЙОГО РОБИТИ НЕ ТРЕБА
     public class FileRepository<TEntity> : IGenericRepository<TEntity> where TEntity :class
     {
         public void Create(TEntity entity)
@@ -34,6 +36,11 @@ namespace VasyanStore.DataAccess.Repository.Implementation
         public IEnumerable<TEntity> GetAll()
         {
             return new List<TEntity>(); 
+        }
+
+        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+        {
+            throw new NotImplementedException();
         }
 
         public TEntity GetById(int id)

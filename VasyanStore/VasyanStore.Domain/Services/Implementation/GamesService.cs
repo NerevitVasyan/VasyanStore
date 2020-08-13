@@ -16,7 +16,7 @@ namespace VasyanStore.Domain.Services.Implementation
 
         public ICollection<Game> GetAllGames()
         {
-            var games = _repos.GetAll();
+            var games = _repos.GetAll(x => x.Developer, x => x.Genre);
             return games.ToList();
         }
     }

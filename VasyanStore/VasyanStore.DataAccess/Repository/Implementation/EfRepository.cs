@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using VasyanStore.DataAccess.Repository.Abstraction;
 
 namespace VasyanStore.DataAccess.Repository.Implementation
@@ -34,7 +36,16 @@ namespace VasyanStore.DataAccess.Repository.Implementation
         {
             //Get all entities from database, for example get all games
             return _set.AsEnumerable();
-            //return _set.ToList()
+            //return context.Games.ToList()
+        }
+
+        //  repos.GetAll(x=>x.Genre,x=>x.Developer);
+        // params Expression<Func<TEntity,object>>[] includes - це массив лямбд типу x=>x.Genre
+        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity,object>>[] includes)
+        {
+            // _set.AsQueriable().Include(x=>x.Genre).Include(x=>x.Developer).AsEnumerable();
+            return includes.Aggregate(_set.AsQueryable(),
+                (current, include) => current.Include(include)).AsEnumerable();
         }
 
         public TEntity GetById(int id)
