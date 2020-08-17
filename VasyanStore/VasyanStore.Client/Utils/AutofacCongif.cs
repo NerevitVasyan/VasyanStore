@@ -12,6 +12,7 @@ using VasyanStore.DataAccess.Repository.Abstraction;
 using VasyanStore.DataAccess.Repository.Implementation;
 using VasyanStore.Domain.Services.Abstraction;
 using VasyanStore.Domain.Services.Implementation;
+using AutoMapper;
 
 namespace VasyanStore.Client.Utils
 {
@@ -28,6 +29,10 @@ namespace VasyanStore.Client.Utils
             builder.RegisterType<EFContext>().As<DbContext>();
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IGenericRepository<>));
             builder.RegisterType<GamesService>().As<IGamesService>();
+
+            //Register AutoMapper
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new MapperProfile()));
+            builder.RegisterInstance<IMapper>(mapperConfig.CreateMapper());
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
 

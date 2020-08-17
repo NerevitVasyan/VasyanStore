@@ -2,11 +2,11 @@
     @* Вказуємо обгортку для нашої сторінки *@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using VasyanStore.DataAccess.Entities;
+@using VasyanStore.Client.Models;
 
 <div class="container">
     <div class="row">
-        @foreach (Game game in ViewBag.Games)
+        @foreach (GameViewModel game in ViewBag.Games)
         {
             <div class="col-4">
                 <div class="card bg-info">
@@ -14,8 +14,8 @@
                         <p>@game.Name</p>
                         <p>@game.Price</p>
                         <p>@game.ReleaseDate</p>
-                        <p>@game.Genre.Name</p>
-                        <p>@game.Developer.Name</p>
+                        <p>@game.Genre</p>
+                        <p>@game.Developer</p>
                     </div>
                 </div>
             </div>
