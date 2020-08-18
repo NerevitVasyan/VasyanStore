@@ -15,8 +15,8 @@ namespace VasyanStore.Client.Utils
 
             // GameViewMode => Game
             CreateMap<GameViewModel, Game>()
-                .ForMember(x => x.Genre, opt => opt.MapFrom(m => new Genre { Name = m.Name }))
-                .ForMember(x => x.Developer, opt => opt.MapFrom(m => new Developer { Name = m.Name }));
+                .ForMember(x => x.Genre, opt => opt.MapFrom(m => new Genre { Name = m.Genre }))
+                .ForMember(x => x.Developer, opt => opt.MapFrom(m => new Developer { Name = m.Developer }));
 
         }
     }

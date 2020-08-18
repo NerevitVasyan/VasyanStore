@@ -3,10 +3,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using VasyanStore.Client.Models;
+@model IEnumerable<GameViewModel>
 
 <div class="container">
     <div class="row">
-        @foreach (GameViewModel game in ViewBag.Games)
+        @foreach (var game in Model)
         {
             <div class="col-4">
                 <div class="card bg-info">
@@ -21,4 +22,7 @@
             </div>
         }
     </div>
+    <a href="/Games/AddGame ">Add new Game</a>
+    @Html.ActionLink("Add new Game", "AddGame", null, new { @class = "btn btn-info" })
+
 </div>

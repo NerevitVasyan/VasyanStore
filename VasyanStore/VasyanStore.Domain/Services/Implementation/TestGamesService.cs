@@ -8,8 +8,14 @@ using VasyanStore.Domain.Services.Abstraction;
 
 namespace VasyanStore.Domain.Services.Implementation
 {
+    // NOT FOR COPY!!!!!
     public class TestGamesService : IGamesService
     {
+        public void AddGame(Game model)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<Game> GetAllGames()
         {
             var games = new List<Game>

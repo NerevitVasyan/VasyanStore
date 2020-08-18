@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VasyanStore.Client.Models;
+using VasyanStore.DataAccess.Entities;
 using VasyanStore.Domain.Services.Abstraction;
 
 namespace VasyanStore.Client.Controllers
@@ -42,9 +43,22 @@ namespace VasyanStore.Client.Controllers
             var gameModels = _mapper.Map<ICollection<GameViewModel>>(games);
 
             //var test = _mapper.Map<ICollection<DataAccess.Entities.Game>>(gameModels);
-
-            ViewBag.Games = gameModels;
+            //ViewBag.Games = gameModels;
+            return View(gameModels);
+        }
+    
+        [HttpGet]
+        public ActionResult AddGame()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddGame(GameViewModel model)
+        {
+            var game = _mapper.Map<Game>(model);
+            _gamesService.AddGame(game);
+            return RedirectToAction("Index");
         }
     }
 }

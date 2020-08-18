@@ -6,5 +6,6 @@ namespace VasyanStore.Domain.Services.Abstraction
     public interface IGamesService
     {
         ICollection<Game> GetAllGames();
+        void AddGame(Game model);
     }
 }
