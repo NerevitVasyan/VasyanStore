@@ -42,5 +42,15 @@ namespace VasyanStore.Domain.Services.Implementation
 
             _repos.Create(model);
         }
+
+        public IEnumerable<string> GetGenres()
+        {
+            return _reposGenre.GetAll().Select(x => x.Name);
+        }
+
+        public IEnumerable<string> GetDevelopers()
+        {
+            return _reposDevs.GetAll().Select(x => x.Name);
+        }
     }
 }

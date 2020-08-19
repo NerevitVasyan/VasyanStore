@@ -4,52 +4,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container">
+<div class="container">
 
-        @using (Html.BeginForm())
-        {
-            <div class="form-group">
-                @*<label for="Name">Name:</label>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @*<label for="Name">Name:</label>
                 <input id="Name" name="Name" class="form-control" type="text" />*@
 
-                @Html.LabelFor(x => x.Name)
-                @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-            </div>
-            <div class="form-group">
-                @*<label for="Price">Price:</label>*@
-                @Html.LabelFor(x => x.Price)
+            @Html.LabelFor(x => x.Name)
+            @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div class="form-group">
+            @*<label for="Price">Price:</label>*@
+            @Html.LabelFor(x => x.Price)
 
-                @*<input id="Price" name="Price" class="form-control" type="number" />*@
-                @Html.EditorFor(x => x.Price, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
-            </div>
-            <div class="form-group">
-                @*<label>ReleaseDate:</label>
+            @*<input id="Price" name="Price" class="form-control" type="number" />*@
+            @Html.EditorFor(x => x.Price, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            @Html.ValidationMessageFor(x => x.Price)
+        </div>
+        <div class="form-group">
+            @*<label>ReleaseDate:</label>
                 <input class="form-control" type="date" />*@
 
-                @Html.LabelFor(x => x.ReleaseDate)
-                @Html.EditorFor(x => x.ReleaseDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            </div>
-            <div class="form-group">
-                @*<label>Genre:</label>
+            @Html.LabelFor(x => x.ReleaseDate)
+            @Html.EditorFor(x => x.ReleaseDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.ValidationMessageFor(x => x.ReleaseDate)
+        </div>
+        <div class="form-group">
+            @*<label>Genre:</label>
                 <input class="form-control" type="text" />*@
 
-                @Html.LabelFor(x => x.Genre)
-                @Html.EditorFor(x => x.Genre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-            </div>
-            <div class="form-group">
-                @*<label>Developer:</label>
+            @Html.LabelFor(x => x.Genre)
+            <select id="Genre" name="Genre" class="form-control">
+                @foreach (var genre in ViewBag.Genres)
+                {
+                    <option>@genre</option>
+                }
+            </select>
+
+            @*@Html.EditorFor(x => x.Genre, new { htmlAttributes = new { @class = "form-control", @type = "text" } })*@
+        </div>
+        <div class="form-group">
+            @*<label>Developer:</label>
                 <input class="form-control" type="text" />*@
 
-                @Html.LabelFor(x => x.Developer)
-                @Html.EditorFor(x => x.Developer, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-success w-100" value="Add" />
-            </div>
-        }
+            @Html.LabelFor(x => x.Developer)
+
+            <select id="Developer" name="Developer" class="form-control">
+                @foreach (var dev in ViewBag.Developers)
+                {
+                    <option>@dev</option>
+                }
+            </select>
+
+            @*@Html.EditorFor(x => x.Developer, new { htmlAttributes = new { @class = "form-control", @type = "text" } })*@
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success w-100" value="Add" />
+        </div>
+    }
 
 
-        @*@using (Html.BeginForm())
+    @*@using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
@@ -105,9 +123,9 @@
             </div>
         }*@
 
-        @*<div>
+    @*<div>
             @Html.ActionLink("Back to List", "Index")
         </div>*@
 
-    </div>
+</div>
 

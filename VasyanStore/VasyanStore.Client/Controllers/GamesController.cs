@@ -50,15 +50,31 @@ namespace VasyanStore.Client.Controllers
         [HttpGet]
         public ActionResult AddGame()
         {
-            return View();
+            ViewBag.Developers = _gamesService.GetDevelopers();
+            ViewBag.Genres = _gamesService.GetGenres();
+
+            var def = new GameViewModel() { ReleaseDate = DateTime.Now,Price=0 };
+
+            return View(def);
         }
 
         [HttpPost]
         public ActionResult AddGame(GameViewModel model)
         {
-            var game = _mapper.Map<Game>(model);
-            _gamesService.AddGame(game);
-            return RedirectToAction("Index");
+            // Перевіряємо чи модель проходить валідацію
+            if (ModelState.IsValid)
+            {
+                //Якщо проходить, то додаємо до бази данних
+                var game = _mapper.Map<Game>(model);
+                _gamesService.AddGame(game);
+                return RedirectToAction("Index");
+            }
+
+            //Якщо ні, то заново показуємо сторінку додавання але з помилками валідації
+            ViewBag.Developers = _gamesService.GetDevelopers();
+            ViewBag.Genres = _gamesService.GetGenres();
+
+            return View(model);
         }
     }
 }

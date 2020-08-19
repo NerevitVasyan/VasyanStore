@@ -30,5 +30,15 @@ namespace VasyanStore.Domain.Services.Implementation
 
             return games;
         }
+
+        public IEnumerable<string> GetDevelopers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> GetGenres()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
