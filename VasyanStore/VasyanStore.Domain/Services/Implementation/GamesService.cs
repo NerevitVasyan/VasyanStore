@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Binbin.Linq;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using VasyanStore.DataAccess.Entities;
 using VasyanStore.DataAccess.Repository.Abstraction;
+using VasyanStore.Domain.Filters;
 using VasyanStore.Domain.Services.Abstraction;
 
 namespace VasyanStore.Domain.Services.Implementation
@@ -20,9 +23,50 @@ namespace VasyanStore.Domain.Services.Implementation
             _reposGenre = reposGenre;
         }
 
-        public ICollection<Game> GetAllGames()
+        //public bool isEven(int a)
+        //{
+        //    if (a % 2 == 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //public bool isEven2(int a) => (a % 2 == 0);
+
+        //public Func<int, bool> isEven3 = (a => a % 2 == 0);
+
+        public ICollection<Game> GetAllGames(List<GameFilter> filters)
         {
+            //Витягуємо всі ігри
             var games = _repos.GetAll(x => x.Developer, x => x.Genre);
+
+            //якщо є фільтри, то робимо фільтрацію
+            if (filters != null)
+            {
+                // For example filters
+                // filter1.Predicate = (x=>x.Developer.Name == "Bethesda")
+                // filter2.Predicate = (x=>x.Developer.Name == "Blizzard")
+                // filter3.Predicate = (x=>x.Developer.Name == "Valve")
+
+                // ...Where(filter1.Predicate || filter2.Predicate || filter3.Predicate)
+
+                //ліпимо всі фільтри в один предикат
+                var predicate = PredicateBuilder.Create(filters[0].Predicate);
+
+                for(int i = 1; i < filters.Count; i++)
+                {
+                    predicate = predicate.Or(filters[i].Predicate);
+                }
+
+                //витягуємо ті ігри які підходять по нашим предикатам
+                games = games.Where(predicate.Compile());
+            }
+
+            //повертаємо ігри
             return games.ToList();
         }
 

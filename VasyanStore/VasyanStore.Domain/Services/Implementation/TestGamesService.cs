@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VasyanStore.DataAccess.Entities;
+using VasyanStore.Domain.Filters;
 using VasyanStore.Domain.Services.Abstraction;
 
 namespace VasyanStore.Domain.Services.Implementation
@@ -29,6 +30,11 @@ namespace VasyanStore.Domain.Services.Implementation
             };
 
             return games;
+        }
+
+        public ICollection<Game> GetAllGames(List<GameFilter> filters)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<string> GetDevelopers()

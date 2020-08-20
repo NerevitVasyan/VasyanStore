@@ -30,7 +30,8 @@ namespace VasyanStore.DataAccess.Initializers
                 new Developer { Name = "Bethesda" },
                 new Developer { Name = "Ubisoft" },
                 new Developer { Name = "Valve" },
-                new Developer { Name = "Blizzard" }
+                new Developer { Name = "Blizzard" },
+                new Developer { Name = "EA" }
             };
 
             context.Developers.AddRange(devs);
@@ -61,6 +62,86 @@ namespace VasyanStore.DataAccess.Initializers
                     ReleaseDate = new DateTime(2010,11,11),
                     Developer = devs.FirstOrDefault(x=>x.Name == "Valve"),
                     Genre = genres.FirstOrDefault(x=>x.Name == "Strategy")
+                },
+                   new Game
+                {
+                    Name = "Cyberpank 2077",
+                    Price = 60,
+                    ReleaseDate = new DateTime(2020,11,19),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "CD Project Red"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "RPG")
+                },
+                   new Game
+                {
+                    Name = "Half-life: Alyx",
+                    Price = 60,
+                    ReleaseDate = new DateTime(2010,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Valve"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
+                },
+                   new Game
+                {
+                    Name = "Assasins Creed: Valhalla",
+                    Price = 60,
+                    ReleaseDate = new DateTime(2020,11,17),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Ubisoft"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
+                },
+                   new Game
+                {
+                    Name = "Need For Speed Most Wanted",
+                    Price = 30,
+                    ReleaseDate = new DateTime(2007,5,9),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "EA"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Racing")
+                },
+                   new Game
+                {
+                    Name = "Warcraft 3",
+                    Price = 20,
+                    ReleaseDate = new DateTime(2002,1,5),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Blizzard"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Strategy")
+                },
+                   new Game
+                {
+                    Name = "Overwatch",
+                    Price = 0,
+                    ReleaseDate = new DateTime(2017,5,6),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Blizzard"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
+                },
+                   new Game
+                {
+                    Name = "Starcfart 2",
+                    Price = 60,
+                    ReleaseDate = new DateTime(2011,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Blizzard"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Strategy")
+                },
+                   new Game
+                {
+                    Name = "BattleField",
+                    Price = 80,
+                    ReleaseDate = new DateTime(2010,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "EA"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
+                },
+                   new Game
+                {
+                    Name = "Fallout 4",
+                    Price = 50,
+                    ReleaseDate = new DateTime(2010,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Bethesda"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
+                },
+                   new Game
+                {
+                    Name = "Fallout 76",
+                    Price = 60,
+                    ReleaseDate = new DateTime(2010,11,11),
+                    Developer = devs.FirstOrDefault(x=>x.Name == "Bethesda"),
+                    Genre = genres.FirstOrDefault(x=>x.Name == "Action")
                 }
             };
 
