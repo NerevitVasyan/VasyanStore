@@ -15,7 +15,7 @@ namespace VasyanStore.Client.Controllers
     {
         private readonly IGamesService _gamesService;
         private readonly IMapper _mapper;
-        public GamesController(IGamesService gamesService,IMapper mapper)
+        public GamesController(IGamesService gamesService, IMapper mapper)
         {
             _gamesService = gamesService;
             _mapper = mapper;
@@ -28,67 +28,18 @@ namespace VasyanStore.Client.Controllers
             ViewBag.Genres = _gamesService.GetGenres();
 
             // якщо в метод прийшов новий фільтр
-            if (type !=null & name != null)
+            if (type != null & name != null)
             {
-                //якщо раніше фільтрів не було то виділяємо під ний пям'ять
-                if(Session["GameFilters"] == null)
-                {
-                    Session["GameFilters"] = new List<GameFilter>();
-                }
-
-                //створюємо новий фільтр
-                var filter = new GameFilter
-                {
-                    Name = name,
-                    Type = type
-                };
-
-                //перевіряємо тип фільтра
-                if(type == "Developer")
-                {
-                    filter.Predicate = (x => x.Developer.Name == name);
-                }
-
-                //додаємо фільтр до нашої колекції фільтрів
-                (Session["GameFilters"] as List<GameFilter>).Add(filter);
+                addFilter(type, name);
             }
 
             //відправляємо фільтри до сервісу, де по цим фільтрам виберуться ігри
             var games = _gamesService.GetAllGames(Session["GameFilters"] as List<GameFilter>);
 
-            //var gameModels = new List<GameViewModel>();
-            ////Mapping
-            //foreach(var game in games)
-            //{
-            //    gameModels.Add(new GameViewModel
-            //    {
-            //        Id = game.Id,
-            //        Name = game.Name,
-            //        Genre = game.Genre.Name,
-            //        Developer = game.Developer.Name,
-            //        Price = game.Price,
-            //        ReleaseDate = game.ReleaseDate
-            //    });
-            //}
-
             var gameModels = _mapper.Map<ICollection<GameViewModel>>(games);
 
-            //var test = _mapper.Map<ICollection<DataAccess.Entities.Game>>(gameModels);
-            //ViewBag.Games = gameModels;
             return View(gameModels);
         }
-    
-        //public ActionResult Index(string type,string name)
-        //{
-        //    ViewBag.Developers = _gamesService.GetDevelopers();
-        //    ViewBag.Genres = _gamesService.GetGenres();
-
-
-
-
-
-        //    return View();
-        //}
 
         [HttpGet]
         public ActionResult AddGame()
@@ -96,7 +47,7 @@ namespace VasyanStore.Client.Controllers
             ViewBag.Developers = _gamesService.GetDevelopers();
             ViewBag.Genres = _gamesService.GetGenres();
 
-            var def = new GameViewModel() { ReleaseDate = DateTime.Now,Price=0 };
+            var def = new GameViewModel() { ReleaseDate = DateTime.Now, Price = 0 };
 
             return View(def);
         }
@@ -118,6 +69,31 @@ namespace VasyanStore.Client.Controllers
             ViewBag.Genres = _gamesService.GetGenres();
 
             return View(model);
+        }
+
+        private void addFilter(string type, string name)
+        {
+            //якщо раніше фільтрів не було то виділяємо під ний пям'ять
+            if (Session["GameFilters"] == null)
+            {
+                Session["GameFilters"] = new List<GameFilter>();
+            }
+
+            //створюємо новий фільтр
+            var filter = new GameFilter
+            {
+                Name = name,
+                Type = type
+            };
+
+            //перевіряємо тип фільтра
+            if (type == "Developer")
+            {
+                filter.Predicate = (x => x.Developer.Name == name);
+            }
+
+            //додаємо фільтр до нашої колекції фільтрів
+            (Session["GameFilters"] as List<GameFilter>).Add(filter);
         }
     }
 }

@@ -6,25 +6,16 @@
 @model IEnumerable<GameViewModel>
 
 <div>
-    <div class="row">
-        @foreach (var game in Model)
-        {
-        <div class="col-4">
+    @{
+        Html.RenderPartial("Partial/Sidebar");
+    }
 
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title border-bottom pb-2">@game.Name</h3>
-                    <p class="card-text">@game.Price</p>
-                    <p class="card-text">@game.ReleaseDate</p>
-                    <p class="card-text">@game.Genre</p>
-                    <p class="card-text">@game.Developer</p>
-                </div>
-            </div>
-
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            @{
+                Html.RenderPartial("Partial/GamesPartial", Model);
+            }
         </div>
-        }
     </div>
-    <a href="/Games/AddGame ">Add new Game</a>
-    @Html.ActionLink("Add new Game", "AddGame", null, new { @class = "btn btn-info" })
 
 </div>

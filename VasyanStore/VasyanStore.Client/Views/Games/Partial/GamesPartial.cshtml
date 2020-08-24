@@ -1,0 +1,22 @@
+﻿@using VasyanStore.Client.Models;
+@model IEnumerable<GameViewModel>
+
+
+<div class="row">
+    @foreach (var game in Model)
+    {
+        <div class="col-4">
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title border-bottom pb-2">@game.Name</h3>
+                    <p class="card-text">@game.Price</p>
+                    <p class="card-text">@game.ReleaseDate</p>
+                    <p class="card-text">@game.Genre</p>
+                    <p class="card-text">@game.Developer</p>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

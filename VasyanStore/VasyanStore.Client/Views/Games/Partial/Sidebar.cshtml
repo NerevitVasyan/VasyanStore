@@ -1,0 +1,66 @@
+﻿<div class="nav-left-sidebar sidebar-dark">
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+        <div class="menu-list" style="overflow: hidden; width: auto; height: 100%;">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+
+                        <li class="nav-divider">
+                            Menu
+                        </li>
+
+                        @* Fiters menu item *@
+                        <li class="nav-item ">
+                            <a class="nav-link active cursor-ptr" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-filter"></i>Filters <span class="badge badge-success">6</span></a>
+                            <div id="submenu-1" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+
+                                    @* Developers menu item *@
+                                    <li class="nav-item cursor-ptr">
+                                        <a class="nav-link collapsed" data-toggle="collapse" aria-expanded="false" data-target="#devsFilter" aria-controls="devsFilter">Developers</a>
+                                        <div id="devsFilter" class="submenu collapse" style="">
+                                            <ul class="nav flex-column">
+
+                                                @foreach (var dev in ViewBag.Developers)
+                                                {
+                                                    <li class="nav-item">
+
+                                                        <label class="custom-control custom-checkbox cursor-ptr">
+                                                            <input onchange="selectDeveloper(event,'Developer','@dev')" type="checkbox" class="custom-control-input"><span class="custom-control-label">@dev</span>
+                                                        </label>
+
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    @* Genres menu item *@
+                                    <li class="nav-item cursor-ptr">
+                                        <a class="nav-link collapsed" data-toggle="collapse" aria-expanded="false" data-target="#genresFilter" aria-controls="genresFilter">Genres</a>
+                                        <div id="genresFilter" class="submenu collapse" style="">
+                                            <ul class="nav flex-column">
+
+                                                @foreach (var genre in ViewBag.Genres)
+                                                {
+                                                    <label class="custom-control custom-checkbox cursor-ptr">
+                                                        <input type="checkbox" class="custom-control-input"><span class="custom-control-label">@genre</span>
+                                                    </label>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 871px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+    </div>
+</div>

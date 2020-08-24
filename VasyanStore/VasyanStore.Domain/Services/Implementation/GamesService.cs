@@ -23,22 +23,6 @@ namespace VasyanStore.Domain.Services.Implementation
             _reposGenre = reposGenre;
         }
 
-        //public bool isEven(int a)
-        //{
-        //    if (a % 2 == 0)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //public bool isEven2(int a) => (a % 2 == 0);
-
-        //public Func<int, bool> isEven3 = (a => a % 2 == 0);
-
         public ICollection<Game> GetAllGames(List<GameFilter> filters)
         {
             //Витягуємо всі ігри
@@ -55,6 +39,7 @@ namespace VasyanStore.Domain.Services.Implementation
                 // ...Where(filter1.Predicate || filter2.Predicate || filter3.Predicate)
 
                 //ліпимо всі фільтри в один предикат
+                //PredicateBuider це окрема бібліотека яку необхідно скачати в NuGet
                 var predicate = PredicateBuilder.Create(filters[0].Predicate);
 
                 for(int i = 1; i < filters.Count; i++)
