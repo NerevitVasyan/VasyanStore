@@ -19,4 +19,14 @@
 
         </div>
     }
+
+    @if (Model == null || Model.Count() == 0)
+    {
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                There is no games!!
+            </div>
+        </div>
+    }
+
 </div>

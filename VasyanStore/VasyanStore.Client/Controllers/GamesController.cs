@@ -42,6 +42,17 @@ namespace VasyanStore.Client.Controllers
         }
 
         [HttpGet]
+        public ActionResult Filter(string type,string name)
+        {
+            addFilter(type, name);
+
+            var games = _gamesService.GetAllGames(Session["GameFilters"] as List<GameFilter>);
+            var gameModels = _mapper.Map<ICollection<GameViewModel>>(games);
+
+            return PartialView("Partial/GamesPartial",gameModels);
+        }
+
+        [HttpGet]
         public ActionResult AddGame()
         {
             ViewBag.Developers = _gamesService.GetDevelopers();
@@ -73,10 +84,22 @@ namespace VasyanStore.Client.Controllers
 
         private void addFilter(string type, string name)
         {
+            var filters = (Session["GameFilters"] as List<GameFilter>);
+
             //якщо раніше фільтрів не було то виділяємо під ний пям'ять
-            if (Session["GameFilters"] == null)
+            if (filters == null)
             {
-                Session["GameFilters"] = new List<GameFilter>();
+                filters = new List<GameFilter>();
+            }
+
+            // Якщо такий фільтр уже є то тоді його видаляємо
+            var f = filters.FirstOrDefault(x => x.Type == type && x.Name == name);
+
+            if(f != null)
+            {
+                filters.Remove(f);
+                Session["GameFilters"] = filters;
+                return;
             }
 
             //створюємо новий фільтр
@@ -91,9 +114,15 @@ namespace VasyanStore.Client.Controllers
             {
                 filter.Predicate = (x => x.Developer.Name == name);
             }
+            else if (type == "Genre")
+            {
+                filter.Predicate = (x => x.Genre.Name == name);
+            }
 
             //додаємо фільтр до нашої колекції фільтрів
-            (Session["GameFilters"] as List<GameFilter>).Add(filter);
+            filters.Add(filter);
+
+            Session["GameFilters"] = filters;
         }
     }
 }

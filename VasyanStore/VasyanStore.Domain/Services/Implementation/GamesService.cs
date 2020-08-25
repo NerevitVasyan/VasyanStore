@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using VasyanStore.DataAccess.Entities;
 using VasyanStore.DataAccess.Repository.Abstraction;
 using VasyanStore.Domain.Filters;
@@ -29,7 +30,7 @@ namespace VasyanStore.Domain.Services.Implementation
             var games = _repos.GetAll(x => x.Developer, x => x.Genre);
 
             //якщо є фільтри, то робимо фільтрацію
-            if (filters != null)
+            if (filters != null && filters.Count!=0)
             {
                 // For example filters
                 // filter1.Predicate = (x=>x.Developer.Name == "Bethesda")
@@ -40,15 +41,37 @@ namespace VasyanStore.Domain.Services.Implementation
 
                 //ліпимо всі фільтри в один предикат
                 //PredicateBuider це окрема бібліотека яку необхідно скачати в NuGet
-                var predicate = PredicateBuilder.Create(filters[0].Predicate);
 
-                for(int i = 1; i < filters.Count; i++)
+                var predicates = new List<Expression<Func<Game, bool>>>();
+
+                // (devFilter1 || devFilter2 || devFilter3) && (genreFilter1||genreFilter2)
+
+
+                // (x=>x.Developer.Name == "Bethesda" || x=>x.Developer.Name == "Valve" || x=>x.Developer.Name == "Blizzard" )
+                // && (x=>x.Genre.Name == "RPG" || x=>x.Developer.Name == "Action")
+
+                foreach (var type in filters.GroupBy(x => x.Type))
                 {
-                    predicate = predicate.Or(filters[i].Predicate);
+                    var p = PredicateBuilder.Create(type.First().Predicate);
+                    for (int i = 1; i < type.Count(); i++)
+                    {
+                        p = p.Or(filters[i].Predicate);
+                    }
+                    predicates.Add(p);
+                }
+
+                //predicates[0] = (x=>x.Developer.Name == "Bethesda" || x=>x.Developer.Name == "Valve" || x=>x.Developer.Name == "Blizzard" )
+                //predicates[1] = (x=>x.Genre.Name == "RPG" || x=>x.Developer.Name == "Action")
+
+                var pred = PredicateBuilder.Create(predicates[0]);
+
+                for (int i = 1; i < predicates.Count; i++)
+                {
+                    pred = pred.And(predicates[i]);
                 }
 
                 //витягуємо ті ігри які підходять по нашим предикатам
-                games = games.Where(predicate.Compile());
+                games = games.Where(pred.Compile());
             }
 
             //повертаємо ігри
