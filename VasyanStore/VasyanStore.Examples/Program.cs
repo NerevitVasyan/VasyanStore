@@ -22,24 +22,7 @@ namespace VasyanStore.Examples
 
         static void Main(string[] args)
         {
-            //IGenericRepository<Game> repos = new EfRepository<Game>(new EFContext());
-            //var games = repos.GetAll(x=>x.Genre,x=>x.Developer);
 
-            var context = new EFContext();
-            context.Database.Log = efLogging;
-
-            var games = context.Games.Include(x => x.Genre).Include(x => x.Developer).ToList();
-            //select * from games left join genres on games.genreId = genres.id left join dev...
-
-            foreach (var game in games)
-            {
-                Console.WriteLine(game.Id);
-                Console.WriteLine(game.Name);
-                Console.WriteLine(game.Price);
-                Console.WriteLine(game.ReleaseDate);
-                Console.WriteLine(game.Genre.Name);
-                Console.WriteLine(game.Developer.Name);
-            }
         }
     }
 }

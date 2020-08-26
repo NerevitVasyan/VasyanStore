@@ -1,10 +1,11 @@
 ﻿namespace VasyanStore.DataAccess
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Data.Entity;
     using VasyanStore.DataAccess.Entities;
     using VasyanStore.DataAccess.Initializers;
 
-    public class EFContext : DbContext
+    public class EFContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<Genre> Genres { get; set; }
