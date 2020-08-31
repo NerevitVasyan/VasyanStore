@@ -12,12 +12,12 @@ namespace VasyanStore.Client.Controllers
 {
 
     /*
-     * 
-     1 DataAccess
+     
+     1. DataAccess
         1.1     Install Microsoft.AspNet.Identity.EntityFramework
                         Microsoft.AspNet.Identity.Core
         1.2     EfContext : IdentityDbContext<IdenityUser>
-    2. Client
+     2. Client
         2.1     Install Microsoft.Owin.Host.SystemWeb
                         Microsoft.AspNet.Identity.EntityFramework
                         Microsoft.AspNet.Identity.OWIN

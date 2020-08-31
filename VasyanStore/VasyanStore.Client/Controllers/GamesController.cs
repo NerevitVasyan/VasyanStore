@@ -53,7 +53,7 @@ namespace VasyanStore.Client.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public ActionResult AddGame()
         {
             ViewBag.Developers = _gamesService.GetDevelopers();
@@ -65,7 +65,7 @@ namespace VasyanStore.Client.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="ADMIN")]
         public ActionResult AddGame(GameViewModel model)
         {
             // Перевіряємо чи модель проходить валідацію

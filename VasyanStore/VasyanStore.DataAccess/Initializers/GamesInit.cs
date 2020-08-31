@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,7 +11,7 @@ using VasyanStore.DataAccess.Entities;
 namespace VasyanStore.DataAccess.Initializers
 {
     public class GamesInit : DropCreateDatabaseAlways<EFContext>
-    {
+    { 
         protected override void Seed(EFContext context)
         {
             var genres = new List<Genre>
